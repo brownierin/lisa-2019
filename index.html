@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/erin.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/monokai.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1>Token Up</h1><p>
+					<h3>Keeping Hands out of the Cookie Jar</h3><p>
+					<h3>Erin Browning</h3>
+				</section>
+				<section>
+					<h2>$whoami</h2>
+					<section>
+						Senior Security Engineer<p>
+						<a href="mailto:erin@frowning.wtf">erin@frowning.wtf</a><p>
+						@efrowning<p>
+					</section>
+					<section>
+						<img src="./media/latacora-logo.png" alt="latacora logo">
+					</section>
+					<section>
+						<img src="./media/slack-logo.jpg" alt="slack logo" height="80%">
+					</section>
+					<section>
+						<h3>In this talk:</h3><p>
+						<ul>
+							<li>Browser-based web vuln overview</li>
+							<li>Typical API + frontend structures</li>
+							<li>How to take advantage of browser-based protections</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<h2>The Problem</h2>
+					<section>
+						How do you store sessions/tokens between an API and your frontends?
+					</section>
+					<section>
+						Auth0's answer:<p>
+						<img src="./media/screenshot.png">
+						<ul>
+							<li>don't use js stores</li>
+						</ul>
+					</section>
+				</section>
+			</div>
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true }
+				]
+			});
+		</script>
+	</body>
+</html>
