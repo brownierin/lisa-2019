@@ -27,11 +27,15 @@
 			<div class="slides">
 				<section>
 					<h1>Token Up</h1><p>
-					<h3>Keeping Hands out of the Cookie Jar</h3><p>
-					<h3>Erin Browning</h3>
+					<h2>Keeping Hands out of the Cookie Jar</h2><p>
+					<h4>Erin Browning</h4>
 				</section>
 				<section>
-					<h2>$whoami</h2>
+					Slides are available at:<p>
+					<a href="https://www.frowning.wtf/token-up">https://www.frowning.wtf/token-up</a>
+				</section>
+				<section>
+					<h3>$whoami</h3>
 					<section>
 						Senior Security Engineer<p>
 						<a href="mailto:erin@frowning.wtf">erin@frowning.wtf</a><p>
@@ -46,24 +50,135 @@
 					<section>
 						<h3>In this talk:</h3><p>
 						<ul>
-							<li>Browser-based web vuln overview</li>
-							<li>Typical API + frontend structures</li>
+							<li>Common vulnerabilities that execute in a browser</li>
+							<li>Typical application structures</li>
 							<li>How to take advantage of browser-based protections</li>
 						</ul>
 					</section>
 				</section>
 				<section>
-					<h2>The Problem</h2>
 					<section>
+						<h3>The Problem</h3>
+					</section>
+					<section> 
+						api.frowning.wtf<p>
+						www.frowning.wtf<p>
+					</section>
+					<section>
+						microservices
 						How do you store sessions/tokens between an API and your frontends?
 					</section>
 					<section>
 						Auth0's answer:<p>
-						<img src="./media/screenshot.png">
+						<img src="./media/auth0.png">
+					</section>
+				</section>
+				<section>
+					<section>
+						Let's talk about two common attacks
+					</section>
+					<section>
+						What is XSS?<p>
+					</section>
+					<section>
+						What is XSS?<p>
+						Cross site scripting
+					</section>
+					<section>
+						Attacker created javascript is executed in the user's browser in the context of site the user visited<p>
+						More at: <a href="owasp.org/index.php/Cross-site_Scripting_(XSS)">owasp.org/index.php/Cross-site_Scripting_(XSS)</a>
+					</section>
+					<section>
+						How?<p>
+						Injection!
+					</section>
+					<section>
+						Cannonical testing example:
+						<img src="./media/xss.png" alt="using alert in js plus an xss vulnerability">
+					</section>
+					<section>
+						What can you do with XSS?<p>
 						<ul>
-							<li>don't use js stores</li>
+							<li>Steal cookies</li>
+							<li>Change passwords</li>
+							<li>Take actions as the user</li>
+							<li>Change page content</li>
 						</ul>
 					</section>
+					<section>
+						What is CSRF?
+					</section>
+					<section>
+						What is CSRF?<p>
+						Cross-Site Request Forgery
+					</section>
+					<section>
+						Forces a user to perform actions they didn't intend on a website to which they're authenticated 
+					</section>
+					<section>
+						How? <p>
+						Cookies are sent by default with requests sent cross domain.<p>
+						<ul>
+							<li>frowning.wtf sends a request to transfer money to bank.example when a user visits it</li>
+							<li>the user is logged into bank.example
+							<li>bank.example has no CSRF protection</li>
+						</ul>
+						<h4>money is transferred</h4>
+					</section>
+					<section>
+						What do these attacks have in common?
+					</section>
+					<section>
+						All of these attacks execute in the user's browser
+					</section>
+					<section>
+						How are these attacks different?
+					</section>
+					<section>
+						XSS > CSRF
+					</section>
+					<section>
+						<img src="./media/anything.jpg" alt="cow + dolphin jumping up in an ocean with the caption 'anything you can do i can do better'" height="150%">
+					</section>
+				</section>
+				<section>
+					<section>
+						How can we reduce the impact of these attacks?
+					</section>
+					<section>
+						<h2>Architecture</h2>
+					</section>
+					<section>
+						First, let's talk about the traditional way:
+						<ul>
+							<li>www.domain.example - contains your frontend + any monolith code</li>
+							<li>www.domain.example/api - api<li>
+						</ul>
+					</section>
+					<section>
+						Where is your auth?
+					</section>
+					<section>
+						Probably in a cookie<p>
+						That cookie is probably scoped to *.domain.example<p>
+						If not, it'll be in local storage, placed there by your javascript<p>
+					</section>
+					<section>
+						Interactions are going through XHR to /api<p>
+					</section>
+					<section>
+						How do you even do CSRF protection to your API? 
+					</section>
+				</section>
+				<section>
+					<h3>Special Thanks</h3>
+					<section>
+						lvh @latacora<p>
+						Leigh Honeywell @tallpoppy<p>
+					</section>
+				</section>
+				<section>
+					see you on the internet bb
 				</section>
 			</div>
 		</div>
