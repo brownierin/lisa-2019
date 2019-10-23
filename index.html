@@ -207,15 +207,31 @@
 						Third way: static pages
 					</section>
 					<section>
-						
+						The auth token lives in a completely static page
 					</section>
 					<section>
-						OAuth does this (specifically OpenID Connect)
+						OAuth does this (specifically OpenID Connect)<p>
+						The redirect uses api.example.invalid instead of www.example.invalid<p>
+						API won't serve html or js; this keeps tokens out of anything scraping doc.location() on www.
 					</section>
 				</section>
 				<section>
 					<section>
 						Fourth way: iFrames
+					</section>
+					<section>
+						Instead of using CORS, create an iFrame on www to api.<p>
+						Use the window.postMessage API<p>
+						<small>docs at <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage">developer.mozilla.org/en-US/docs/Web/API/Window/postMessage</a></small>
+					</section>
+					<section>
+						window.postMessage() enables cross-origin communication through the event object
+					</section>
+					<section>
+						#FIXME make a diagram
+					</section>
+					<section>
+						#FIXME talk about targetOrigin *
 					</section>
 				</section>
 				<section>
