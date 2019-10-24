@@ -65,12 +65,13 @@
 						I want to take over accounts on your website.<p>
 					</section>
 					<section>
-						api.frowning.wtf<p>
-						www.frowning.wtf<p>
+						Your site probably looks like this:<p>
+						API: www.frowning.wtf/api<p>
+						Frontend client: www.frowning.wtf<p>
+						Mobile clients
 					</section>
 					<section>
-						microservices
-						How do you store sessions/tokens between an API and your frontends?
+						As you break your website out from a monolith to microservices, how do you store sessions/tokens between an API and your clients?
 					</section>
 					<section>
 						Auth0's answer:<p>
@@ -127,7 +128,7 @@
 							<li>frowning.wtf sends a request to transfer money to bank.example when a user visits it</li>
 							<li>the user is logged into bank.example
 							<li>bank.example has no CSRF protection</li>
-						</ul>
+						</ul><p>
 						<h4>money is transferred</h4>
 					</section>
 					<section>
@@ -189,7 +190,7 @@
 						<ul>
 							<li>*/*, can go cross origin</li> 
 							<li>text/plain, can go cross origin</li>
-							<li>application/www-url-form-encoded, can go cross origin</li>
+							<li>application/x-www-url-form-encoded, can go cross origin</li>
 							<li>application/json, can't go cross origin without CORS</li>
 						</ul>
 					</section>
@@ -200,6 +201,16 @@
 				<section>
 					<section>
 						Second way: subdomains
+					</section>
+					<section>
+						Now you have: <p>
+							<ul>
+								<li>api.frowning.wtf</li>
+								<li>www.frowning.wtf</li>
+							</ul>
+					</section>
+					<section>
+						You can scope cookies to www and to api.
 					</section>
 				</section>
 				<section>
@@ -213,6 +224,9 @@
 						OAuth does this (specifically OpenID Connect)<p>
 						The redirect uses api.example.invalid instead of www.example.invalid<p>
 						API won't serve html or js; this keeps tokens out of anything scraping doc.location() on www.
+					</section>
+					<section>
+						get an example
 					</section>
 				</section>
 				<section>
@@ -237,6 +251,16 @@
 				<section>
 					<section>
 						Fifth way: websockets
+					</section>
+					<section>
+						Verify your `Origin` header.
+					</section>
+					<section>
+						The attacker would need to fake the origin header in the victim's browser.<p>
+						Modern browsers don't let you set your own origin header.
+					</section>
+					<section>
+						The protocol upgrade request will have access to the browser's cookies. Check the auth when upgrading.
 					</section>
 				</section>
 				<section>
