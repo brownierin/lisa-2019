@@ -39,7 +39,7 @@
 					<section>
 						Senior Security Engineer<p>
 						<a href="mailto:erin@frowning.wtf">erin@frowning.wtf</a><p>
-						@efrowning<p>
+						<a href="https://www.twitter.com/efrowning">@efrowning</a><p>
 					</section>
 					<section>
 						<img src="./media/latacora-logo.png" alt="latacora logo">
@@ -51,7 +51,7 @@
 						<h3>In this talk:</h3><p>
 						<ul>
 							<li>Common vulnerabilities that execute in a browser</li>
-							<li>Typical application structures</li>
+							<li>Modern application structures</li>
 							<li>How to take advantage of browser-based protections</li>
 						</ul>
 					</section>
@@ -71,11 +71,14 @@
 						Mobile clients
 					</section>
 					<section>
-						As you break your website out from a monolith to microservices, how do you store sessions/tokens between an API and your clients?
+						As you break your website out from a monolith to microservices, how do you store sessions/tokens between an API and your frontend client?
 					</section>
 					<section>
 						Auth0's answer:<p>
 						<img src="./media/auth0.png">
+					</section>
+					<section>
+						Is storing your authentication token in local storage that bad?
 					</section>
 				</section>
 				<section>
@@ -122,6 +125,7 @@
 						Forces a user to perform actions they didn't intend on a website to which they're authenticated 
 					</section>
 					<section>
+						#FIXME need a diagram
 						How? <p>
 						Cookies are sent by default with requests sent cross domain.<p>
 						<ul>
@@ -164,6 +168,9 @@
 						</ul>
 					</section>
 					<section>
+						#FIXME add frankenstein image
+					</section>
+					<section>
 						Where is your auth token?
 					</section>
 					<section>
@@ -180,9 +187,9 @@
 					<section>
 						Depends on ~content types~<p>
 						<ul>
-							<li>*/*</li> 
+							<li>*/*</li>
 							<li>text/plain</li>
-							<li>application/www-url-form-encoded</li>
+							<li>application/x-www-url-form-encoded</li>
 							<li>application/json</li>
 						</ul>
 					</section>
@@ -197,6 +204,16 @@
 					<section>
 						What is CORS?
 					</section>
+					<section>
+						CORS is Cross Origin Resource Sharing.<p>
+						Lots of requests can't be made from URL1 to URL2 if they differ on the following things:
+						<ul>
+							<li>Protocol (e.g., HTTP vs HTTPS)</li>
+							<li>Port</li>
+							<li>Host</li>
+						</ul>
+						It has to be set on the assets you are accessing.
+					</section>
 				</section>
 				<section>
 					<section>
@@ -210,7 +227,23 @@
 							</ul>
 					</section>
 					<section>
-						You can scope cookies to www and to api.
+						You can scope cookies to www and to api instead of *.<p>
+						The API cookie can have the secure and HTTPonly flags set.<p>
+						<small>Secure means that cookie will only be sent over HTTPS</small><p>
+						<small>HTTPonly means js can't touch it</small><p>
+						<small>Yes, the names are confusing</small>
+					</section>
+					<section>
+						You XHR your requests to api from www.
+					</section>
+					<section>
+						How do you prevent CSRF?<p>
+						Content-types: set up CORS and only allow application/json.
+					</section>
+					<section>
+						How do you reduce the impact of XSS?<p>
+						API isn't running js.<p>
+						www could still be vulnerable, and site could send requests through XHR.
 					</section>
 				</section>
 				<section>
@@ -266,7 +299,19 @@
 				<section>
 					<section>
 						Similarities<p>
-						Static pages, iFrames and websockets all have trustworthy origins in the browser
+						Static pages, iFrames and websockets all have trustworthy origins in the browser.
+					</section>
+					<section>
+						Ultimately, how can you avoid CSRF hitting your API?<p>
+						By dropping all requests to API that aren't application/json
+					</section>
+					<section>
+						How can you avoid XSS?<p>
+						You can't completely.
+					</section>
+					<section>
+						How do you know you have a good understanding of all this?<p>
+						Tell me why XSS is worse in all these cases.
 					</section>
 				</section>
 				<section>
