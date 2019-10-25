@@ -47,14 +47,6 @@
 					<section>
 						<img src="./media/slack-logo.jpg" alt="slack logo" height="80%">
 					</section>
-					<section>
-						<h3>In this talk:</h3><p>
-						<ul>
-							<li>Common vulnerabilities that execute in a browser</li>
-							<li>Modern application structures</li>
-							<li>How to take advantage of browser-based protections</li>
-						</ul>
-					</section>
 				</section>
 				<section>
 					<section>
@@ -71,15 +63,32 @@
 						Mobile clients
 					</section>
 					<section>
-						As you break your website out from a monolith to microservices, how do you store sessions/tokens between an API and your frontend client?
+						Your sessions probably look like one or more of these:<p>
+						<ul>
+							<li>JWTs</li>
+							<li>Randomized session token</li>
+							<li>API tokens</li>
+						</ul>
+					</section>
+					<section>
+						As you break your website out from a monolith to microservices, how do you store sessions/tokens between an API and your browser-based frontend client?
 					</section>
 					<section>
 						Auth0's answer:<p>
 						<img src="./media/auth0.png">
 					</section>
 					<section>
-						Is storing your authentication token in local storage that bad?
+						Is storing your authentication token in local storage that bad?<p>
+						Let's find out.
 					</section>
+				</section>
+				<section>
+					<h3>In this talk:</h3><p>
+					<ul>
+						<li>Common vulnerabilities that execute in a browser</li>
+						<li>Modern application structures</li>
+						<li>How to take advantage of browser-based protections</li>
+					</ul>
 				</section>
 				<section>
 					<section>
@@ -161,17 +170,18 @@
 				</section>
 				<section>
 					<section>
-						First, let's talk about the traditional way:
+						First, let's talk about a typical application structure:
 						<ul>
 							<li>www.domain.example - contains your frontend + any monolith code</li>
 							<li>www.domain.example/api - api</li>
+							<li>www.domain.example/admin - administrator site</li>
 						</ul>
 					</section>
 					<section>
 						#FIXME add frankenstein image
 					</section>
 					<section>
-						Where is your auth token?
+						Where is your authentication stored in the browser?
 					</section>
 					<section>
 						Probably in a cookie<p>
@@ -211,26 +221,28 @@
 							<li>Protocol (e.g., HTTP vs HTTPS)</li>
 							<li>Port</li>
 							<li>Host</li>
-						</ul>
+						</ul><p>
+						https://www.example.invalid:80<p>
 						It has to be set on the assets you are accessing.
 					</section>
 				</section>
 				<section>
 					<section>
-						Second way: subdomains
+						Improvement: use subdomains
 					</section>
 					<section>
 						Now you have: <p>
 							<ul>
 								<li>api.frowning.wtf</li>
 								<li>www.frowning.wtf</li>
+								<li>admin.frowning.wtf</li>
 							</ul>
 					</section>
 					<section>
-						You can scope cookies to www and to api instead of *.<p>
-						The API cookie can have the secure and HTTPonly flags set.<p>
-						<small>Secure means that cookie will only be sent over HTTPS</small><p>
-						<small>HTTPonly means js can't touch it</small><p>
+						You can scope cookies to www, admin and api instead of using *.<p>
+						The API cookie can have the secure and HTTPonly flags set.<br>
+						<small>Secure means that cookie will only be sent over HTTPS</small><br>
+						<small>HTTPonly means js can't touch it</small><br>
 						<small>Yes, the names are confusing</small>
 					</section>
 					<section>
@@ -319,6 +331,8 @@
 					<section>
 						lvh @latacora<p>
 						Leigh Honeywell @tallpoppy<p>
+						The latacora team<p>
+						The Product Security teams @Slack<p>
 					</section>
 				</section>
 				<section>
