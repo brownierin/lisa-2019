@@ -37,6 +37,7 @@
 				<section>
 					<h3>$whoami</h3>
 					<section>
+						Erin Browning<p>
 						Senior Security Engineer<p>
 						a.k.a., I'm a hacker
 					</section>
@@ -56,6 +57,10 @@
 						Slack is used by millions of people every day – we need engineers who want to make that experience as secure and enjoyable as possible.<p>
 						<a href="slack.com/jobs" style="color:#38ba96;">slack.com/jobs</a>
 					</section>
+				</section>
+				<section>
+					All of the code-blocked <code>frowning.wtf</code> are fake.<p>
+					Please don't attack my website ):
 				</section>
 				<section>
 					<section>
@@ -123,8 +128,8 @@
 						Injection!
 					</section>
 					<section>
-						Cannonical testing example:
-						<code data-trim>&lt;script&rt;alert(1);&lt;/script&rt;</code>
+						Cannonical testing example:<br>
+						<code data-trim>&lt;script&gt;alert(1);&lt;/script&gt;</code>
 						<img src="./media/xss.png" alt="using alert in js plus an xss vulnerability">
 					</section>
 					<section>
@@ -148,15 +153,14 @@
 						Forces a user to perform actions they didn't intend on a website to which they're authenticated 
 					</section>
 					<section>
-						#FIXME need a diagram
 						How? <p>
-						Cookies are sent by default with requests sent cross domain.<p>
-						<ul>
-							<li>frowning.wtf sends a request to transfer money to bank.example when a user visits it</li>
-							<li>the user is logged into bank.example
-							<li>bank.example has no CSRF protection</li>
-						</ul><p>
-						<h4>money is transferred</h4>
+						By default, cookies are included in requests sent cross domain.<p>
+					</section>
+					<section>
+						<img src="./media/csrf-example.png" style="max-height: 100%; max-width:auto">
+					</section>
+					<section>
+						<img src="./media/money-is-tranferred.png">
 					</section>
 					<section>
 						What do these attacks have in common?
@@ -192,7 +196,7 @@
 						</ul>
 					</section>
 					<section>
-						<img src="./media/frankenstein.jpg"><p><p>
+						<img src="./media/frankenstein.jpg" style="width: 80%"><p><p>
 						<small><a href="https://design.tutsplus.com/tutorials/create-a-monstrous-frankenstein-photo-manipulation-in-adobe-photoshop--cms-27322">image source</a></small>
 					</section>
 					<section>
@@ -200,14 +204,51 @@
 					</section>
 					<section>
 						Probably in a cookie<p>
-						That cookie is probably scoped to *.domain.example<p>
+						That cookie is probably scoped to <code>*.frowning.wtf</code><p>
 						If not, it'll be in local storage, placed there by your javascript<p>
 					</section>
 					<section>
 						Interactions are going through XHR to /api<p>
+						<small>For those of you who don't do frontend work:<br>
+						XHR is an API called <code>XMLHttpRequest</code>.<br>
+						It let you transfer data between a web browser running JS and a server without reloading the page.</small>
 					</section>
 					<section>
 						How do you even do CSRF protection to your API?
+					</section>
+					<section>
+						Traditional CSRF protection stores a random token in a form in an HTML page.<p>
+						That token gets stored on the server as well.<p>
+						When the form is submitted, the token is sent with the form data and validated on the server.
+					</section>
+					<section>
+						Your API may be using a CSRF token, or it may just be relying on monolith form CSRF protection--aka, your api may be vulnerable.
+					</section>
+				</section>
+				<section>
+					<section>
+						Improvement: use subdomains
+					</section>
+					<section>
+						Now you have: <p>
+							<ul>
+								<li><code>api.frowning.wtf</code></li>
+								<li><code>www.frowning.wtf</code></li>
+								<li><code>admin.frowning.wtf</code></li>
+							</ul>
+					</section>
+					<section>
+						You can scope cookies to www, admin and api instead of using *.<p>
+						The API cookie can have the secure and HTTPonly flags set.<br>
+						<small>Secure means that cookie will only be sent over HTTPS</small><br>
+						<small>HTTPonly means js can't touch it</small><br>
+						<small>Yes, the names are confusing, so remember: for HTTPonly, only HTTP requests can access the cookie.</small>
+					</section>
+					<section>
+						You XHR your requests to api from www.
+					</section>
+					<section>
+						How do you prevent CSRF in your api?
 					</section>
 					<section>
 						Depends on ~content types~<p>
@@ -236,62 +277,19 @@
 					<section>
 						What is the Same Origin Policy?<p>
 						Lots of requests can't be made from URL1 to URL2 if they differ on the following things:
+						<img src="./media/sop.png">
 						<ul>
 							<li>Protocol (e.g., HTTP vs HTTPS)</li>
 							<li>Port</li>
 							<li>Host</li>
 						</ul><p>
-						#FIXME add diagram
-						<code>https://www.frowning.wtf:80</code><p>
-						It has to be set on the assets you are accessing.
-					</section>
-				</section>
-				<section>
-					<section>
-						Improvement: use subdomains
 					</section>
 					<section>
-						Now you have: <p>
-							<ul>
-								<li><code>api.frowning.wtf</code></li>
-								<li><code>www.frowning.wtf</code></li>
-								<li><code>admin.frowning.wtf</code></li>
-							</ul>
-					</section>
-					<section>
-						You can scope cookies to www, admin and api instead of using *.<p>
-						The API cookie can have the secure and HTTPonly flags set.<br>
-						<small>Secure means that cookie will only be sent over HTTPS</small><br>
-						<small>HTTPonly means js can't touch it</small><br>
-						<small>Yes, the names are confusing, so remember: for HTTPonly, only HTTP requests can access the cookie.</small>
-					</section>
-					<section>
-						You XHR your requests to api from www.
-					</section>
-					<section>
-						How do you prevent CSRF?<p>
-						Content-types: set up CORS and only allow application/json.
-					</section>
-					<section>
+						CORS must be set on the assets you are accessing.
+					</section>					<section>
 						How do you reduce the impact of XSS?<p>
 						API isn't running js.<p>
 						www could still be vulnerable, and site could send requests through XHR.
-					</section>
-				</section>
-				<section>
-					<section>
-						Third way: static pages
-					</section>
-					<section>
-						The auth token lives in a completely static page
-					</section>
-					<section>
-						OAuth does this (specifically OpenID Connect)<p>
-						The redirect uses <code>api.frowning.wtf</code> instead of <code>www.frowning.wtf</code><p>
-						API won't serve html or js; this keeps tokens out of anything scraping doc.location() on www.
-					</section>
-					<section>
-						get an example
 					</section>
 				</section>
 				<section>
@@ -304,13 +302,18 @@
 						<small>docs at <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage">developer.mozilla.org/en-US/docs/Web/API/Window/postMessage</a></small>
 					</section>
 					<section>
-						<code>window.postMessage()</code> enables cross-origin communication through the event object
+						<code>window.postMessage()</code> enables cross-origin communication through DOM-based <a href="https://developer.mozilla.org/en-US/docs/Web/API/EventTarget">events.</a><p>
+						Windows can send and receive messages from each other through events.
 					</section>
 					<section>
-						#FIXME make a diagram
+						<img src="./media/window-postmessage.png">
 					</section>
 					<section>
-						#FIXME talk about targetOrigin *
+						<b>ALWAYS ALWAYS ALWAYS validate your origin</b><p>
+						<code>if (event.origin !== www.frowning.wtf)
+							return;
+							// .. otherwise do some stuff
+						</code>
 					</section>
 				</section>
 				<section>
@@ -325,7 +328,11 @@
 						Modern browsers don't let you set your own origin header.
 					</section>
 					<section>
-						The protocol upgrade request will have access to the browser's cookies. Check the auth when upgrading.
+						#fixme
+						Common problems:<p>
+						Sites don't check auth before upgrading the connection.<p>
+						The protocol upgrade request will have access to the browser's cookies. Therefore, check auth when upgrading.<p>
+						Set HTTPOnly on the cookies. This will prevent malicious JS on another site from upgrading with authentication.
 					</section>
 				</section>
 				<section>
