@@ -1,3 +1,4 @@
 [submodule "reveal"]
 	path = reveal
 	url = https://github.com/brownierin/reveal.js.git
+	branch = master
