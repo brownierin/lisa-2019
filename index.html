@@ -59,7 +59,7 @@
 					</section>
 				</section>
 				<section>
-					All of the code-blocked <code>frowning.wtf</code> are fake.<p>
+					All of the code-blocked <code>frowning.wtf</code> URLs are fake.<p>
 					Please don't attack my website ):
 				</section>
 				<section>
@@ -113,7 +113,7 @@
 						Let's talk about two common attacks
 					</section>
 					<section>
-						XSS
+						<img src="./media/xss-header.png">
 					</section>
 					<section>
 						What is XSS?<p>
@@ -142,7 +142,7 @@
 						</ul>
 					</section>
 					<section>
-						CSRF
+						<img src="./media/csrf.png">
 					</section>
 					<section>
 						What is CSRF?<p>
@@ -183,7 +183,7 @@
 						How can we reduce the impact of these attacks?
 					</section>
 					<section>
-						<h2>Architecture</h2>
+						<img src="./media/architecture-header.png">
 					</section>
 				</section>
 				<section>
@@ -211,7 +211,8 @@
 						Interactions are going through XHR to /api<p>
 						<small>For those of you who don't do frontend work:<br>
 						XHR is an API called <code>XMLHttpRequest</code>.<br>
-						It let you transfer data between a web browser running JS and a server without reloading the page.</small>
+						It lets you transfer data between a web browser running JS<br>
+						and a server without reloading the page.</small>
 					</section>
 					<section>
 						How do you even do CSRF protection to your API?
@@ -271,8 +272,8 @@
 						What is CORS?
 					</section>
 					<section>
-						CORS is Cross Origin Resource Sharing.<p>
-						We care about CORS because of the protection offered by the Same Origin Policy (SOP)<p>
+						<img src="./media/cors.png"><p>
+						We care about CORS because of the protection offered by the Same Origin Policy (SOP).
 					</section>
 					<section>
 						What is the Same Origin Policy?<p>
@@ -310,8 +311,8 @@
 					</section>
 					<section>
 						<b>ALWAYS ALWAYS ALWAYS validate your origin</b><p>
-						<code>if (event.origin !== www.frowning.wtf)
-							return;
+						<code>if (event.origin !== www.frowning.wtf)<br>
+							return;<br>
 							// .. otherwise do some stuff
 						</code>
 					</section>
@@ -321,7 +322,7 @@
 						Improvement: use websockets
 					</section>
 					<section>
-						Verify your `Origin` header.
+						Verify your <code>Origin</code> header.
 					</section>
 					<section>
 						The attacker would need to fake the origin header in the victim's browser.<p>
@@ -338,7 +339,7 @@
 				<section>
 					<section>
 						Similarities<p>
-						Static pages, iFrames and websockets all have trustworthy origins in the browser.
+						iFrames and websockets both have trustworthy origins in the browser.
 					</section>
 					<section>
 						Ultimately, how can you avoid CSRF hitting your API?<p>
