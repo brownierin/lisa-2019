@@ -60,7 +60,8 @@
 				</section>
 				<section>
 					All of the code-blocked <code>frowning.wtf</code> URLs are fake.<p>
-					Please don't attack my website.
+					Please don't attack my website.<br>
+					<img src="./media/goose.png">
 				</section>
 				<section>
 					<section>
@@ -92,7 +93,7 @@
 						<img src="./media/auth0.png">
 					</section>
 					<section>
-						Is storing your authentication token in local storage that bad?<p>
+						Is storing your auth in local storage that bad?<p>
 						Let's find out.
 					</section>
 				</section>
@@ -107,11 +108,12 @@
 					</section>
 					<section>
 						<h3>1UP</h3>
-						<img src="./media/mario.jpg">
+						<img src="./media/mario-jump.jpg">
+					</section>
 				</section>
 				<section>
 					<section>
-						Let's talk about two common attacks
+						Two common attacks
 					</section>
 					<section>
 						<img src="./media/xss-header.png">
@@ -137,8 +139,8 @@
 						What can you do with XSS?<p>
 						<ul>
 							<li>Steal cookies</li>
-							<li>Change passwords</li>
 							<li>Take actions as the user</li>
+							<li>Like changing passwords</li>
 							<li>Change page content</li>
 						</ul>
 					</section>
@@ -215,9 +217,6 @@
 						and a server without reloading the page.</small>
 					</section>
 					<section>
-						How do you even do CSRF protection to your API?
-					</section>
-					<section>
 						Traditional CSRF protection stores a random token in a form in an HTML page.<p>
 						That token gets stored on the server as well.<p>
 						When the form is submitted, the token is sent with the form data and validated on the server.
@@ -249,23 +248,25 @@
 						You XHR your requests to api from www.
 					</section>
 					<section>
-						How do you prevent CSRF in your api?
+						How do you even do CSRF protection to your API?
 					</section>
 					<section>
 						Depends on ~content types~<p>
 						<ul>
-							<li><code>*/*</code></li>
+							<li><code>multipart/form-data</code></li>
 							<li><code>text/plain</code></li>
 							<li><code>application/x-www-url-form-encoded</code></li>
 							<li><code>application/json</code></li>
+							<li><code>application/xml</code></li>
 						</ul>
 					</section>
 					<section>
 						<ul>
-							<li><code>*/*</code>, can go cross origin</li> 
+							<li><code>multipart/form-data</code>, can go cross origin</li> 
 							<li><code>text/plain</code>, can go cross origin</li>
 							<li><code>application/x-www-url-form-encoded</code>, can go cross origin</li>
 							<li><code>application/json</code>, can't go cross origin without CORS</li>
+							<li><code>application/xml</code>, can't go cross origin without CORS</li>
 						</ul>
 					</section>
 					<section>
@@ -287,10 +288,11 @@
 					</section>
 					<section>
 						CORS must be set on the assets you are accessing.
-					</section>					<section>
+					</section>					
+					<section>
 						How do you reduce the impact of XSS?<p>
 						API isn't running js.<p>
-						www could still be vulnerable, and site could send requests through XHR.
+						www could still be vulnerable, and the site could send requests through XHR.
 					</section>
 				</section>
 				<section>
@@ -329,11 +331,10 @@
 						Modern browsers don't let you set your own origin header.
 					</section>
 					<section>
-						#fixme
 						Common problems:<p>
-						Sites don't check auth before upgrading the connection.<p>
-						The protocol upgrade request will have access to the browser's cookies. Therefore, check auth when upgrading.<p>
-						Set HTTPOnly on the cookies. This will prevent malicious JS on another site from upgrading with authentication.
+						<ul>
+							<li>Sites don't check auth before upgrading the connection. The protocol upgrade request will have access to the browser's cookies. Therefore, check auth when upgrading.</li>
+						</ul>
 					</section>
 				</section>
 				<section>
@@ -348,6 +349,10 @@
 					<section>
 						How can you avoid XSS?<p>
 						You can't completely. 
+					</section>
+					<section>
+						Should you store auth in local storage?<p>
+						Not unless you're sure you can prevent XSS.
 					</section>
 					<section>
 						How do you know you have a good understanding of all this?<p>

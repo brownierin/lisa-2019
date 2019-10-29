@@ -1,4 +1,6 @@
-
+function reqListener () {
+  console.log(this.responseText);
+}
 
 var url = "http://127.0.0.1:9000"
 var req = new XMLHttpRequest();
